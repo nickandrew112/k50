@@ -39,10 +39,11 @@ class Controller
 
         $fieldsCount = intval($_POST['fields_count']);
         $chipCount = intval($_POST['chip_count']);
+        $fileName = DATA_DIR . DIRECTORY_SEPARATOR . uniqid() . '.txt';
 
         try {
             $combinator = new Combinator($fieldsCount, $chipCount);
-            $combinator->genSet();
+            $combinator->genSet($fileName);
         }
         catch (\InvalidArgumentException $e)
         {

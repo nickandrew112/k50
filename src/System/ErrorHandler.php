@@ -22,14 +22,14 @@ final class ErrorHandler
     /**
      * Singleton instance
      *
-     * @var null|Application
+     * @var null|$this
      */
     protected static $instance = null;
 
     /**
      * Объект Singleton instance
      *
-     * @return Application
+     * @return void
      */
     public static function init()
     {
