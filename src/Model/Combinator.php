@@ -50,9 +50,7 @@ class Combinator
      */
     public function genSet($fileName)
     {
-        if (!file_exists($fileName)) {
-            throw new \RuntimeException("File not exists");
-        } else if (!is_writable($fileName)) {
+        if (!is_writable(dirname($fileName))) {
             throw new \RuntimeException("File Write:Permission denied");
         } else {
             $this->fileHandler = fopen($fileName, 'w');
@@ -115,7 +113,6 @@ class Combinator
         if (!is_integer($fieldsCount) || !is_integer($chipCount)) {
             throw new \InvalidArgumentException("Bad Constructor fields and chip Args");
         }
-
 
         $this->fieldsCount = $fieldsCount;
         $this->chipCount = $chipCount;

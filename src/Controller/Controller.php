@@ -14,6 +14,11 @@ use Model\Combinator;
 class Controller
 {
     /**
+     * HTTP возвращаемый при успехе
+     */
+    const SUCCESS_CODE = 200;
+
+    /**
      * HTTP возвращаемый при некорректных параметрах
      */
     const BAD_REQUEST_CODE = 400;
@@ -34,26 +39,23 @@ class Controller
         if(empty($_POST['fields_count']) || empty($_POST['chip_count']))
         {
             http_response_code(static::BAD_REQUEST_CODE);
-
         }
+        else {
+            $fieldsCount = intval($_POST['fields_count']);
+            $chipCount = intval($_POST['chip_count']);
+            $fileName = uniqid() . '.txt';
 
-        $fieldsCount = intval($_POST['fields_count']);
-        $chipCount = intval($_POST['chip_count']);
-        $fileName = DATA_DIR . DIRECTORY_SEPARATOR . uniqid() . '.txt';
+            try {
+                $combinator = new Combinator($fieldsCount, $chipCount);
+                $combinator->genSet( DATA_DIR . DIRECTORY_SEPARATOR .  $fileName);
+                http_response_code(static::SUCCESS_CODE);
 
-        try {
-            $combinator = new Combinator($fieldsCount, $chipCount);
-            $combinator->genSet($fileName);
-        }
-        catch (\InvalidArgumentException $e)
-        {
-            http_response_code(static::BAD_REQUEST_CODE);
-        }
-        catch (\Exception $e)
-        {
-            http_response_code(static::SERVER_ERROR_CODE);
-
-            return '';
+                return $fileName;
+            } catch (\InvalidArgumentException $e) {
+                http_response_code(static::BAD_REQUEST_CODE);
+            } catch (\Exception $e) {
+                http_response_code(static::SERVER_ERROR_CODE);
+            }
         }
 
         return '';

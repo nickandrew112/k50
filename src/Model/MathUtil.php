@@ -29,13 +29,12 @@ class MathUtil
             throw new \InvalidArgumentException("Input parametrs are not a number");
         }
 
-
         if($m > $n)
         {
             throw new \InvalidArgumentException("Incorrect arguments n < m (" . $n  .'<' . $m . ')');
         }
 
-        return bcdiv(static::factorialWrapper($n), bcmul(static::factorialWrapper($m), static::factorialWrapper($n-$m)) );
+        return bcdiv(static::factorialWrapper($n), bcmul(static::factorialWrapper($m), static::factorialWrapper($n-$m), 0));
     }
 
     /**

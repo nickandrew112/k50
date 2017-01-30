@@ -2,23 +2,30 @@
 /**
  * test_task_k50
  *
- * @category TODO:ADD category
- * @package TODO:ADD package
+ * @category System
+ * @package System
  * @author TurhishJoe
  *
  */
 namespace System;
 
 /**
- * TODO:Add your description
+ * Перехватчик ошибок
  *
- * @category TODO:ADD category
- * @package TODO:ADD package
+ * @category System
+ * @package System
  * @author TurhishJoe
  *
  */
 final class ErrorHandler
 {
+    /**
+     * Тип php ошибок, которые превращаются в исключения в ходе работы программы
+     *
+     * @var array
+     */
+    static $allowedErrors = [E_ERROR, E_PARSE, E_COMPILE_ERROR || E_CORE_ERROR];
+
     /**
      * Singleton instance
      *
@@ -46,11 +53,11 @@ final class ErrorHandler
      * @param string $file имя файла, в котором произошла ошибка
      * @param int $line номер строки, в которой произошла ошибка
      *
-     * @throws ErrorException
+     * @throws \ErrorException
      */
     public function handlePhpError($errorType, $errorString, $file, $line)
     {
-        throw new ErrorException($errorString, 0, $errorType, $file, $line);
+        throw new \ErrorException($errorString, 0, $errorType, $file, $line);
     }
 
     /**
