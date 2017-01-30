@@ -31,9 +31,9 @@ class Combinator
 
     public function __construct($fieldsCount, $chipCount)
     {
-        if(!is_numeric($fieldsCount) || !is_numeric($chipCount))
+        if(!is_integer($fieldsCount) || !is_integer($chipCount))
         {
-            throw new RuntimeException(__CLASS__ . ": bad Constructor Args");
+            throw new \RuntimeException( "Bad Constructor Args");
         }
 
         $this->n = $fieldsCount;
