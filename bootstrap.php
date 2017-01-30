@@ -2,4 +2,5 @@
 include_once 'autoloader.php';
 
 $controller = new Controller();
-$controller->generateAction();
+//Т.к. действие у нас одно, смело его вызываем
+echo $controller->generateAction();

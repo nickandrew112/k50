@@ -3,42 +3,39 @@
 class Combinator
 {
 
-    protected $sets = [];
+    protected  $fieldsCount;
 
-    protected $p = [];
+    protected $chipCount;
 
-    /**
-     * TODO:Add your description
-     *
-     * @return array
-     */
-    public function getSets()
-    {
-        return $this->sets;
-    }
+    protected $set = [];
+
 
     public function genSet($pos = 0, $maxUsed = 0)
     {
-        if($pos == $this->m)
+        if($pos == $this->chipCount)
         {
-            $this->sets[] = $this->p;
-
+            //TODO:Add action
             return;
         }
 
-        for ($i = $maxUsed + 1 ; $i <= $this->n ; $i++)
+        for ($i = $maxUsed + 1 ; $i <= $this->fieldsCount ; $i++)
         {
-                $this->p[$pos] = $i;
+                $this->set[$pos] = $i;
                 $this->genSet($pos + 1, $i);
         }
     }
 
 
 
-    public function __construct($n, $m)
+    public function __construct($fieldsCount, $chipCount)
     {
-        $this->n = $n;
-        $this->m = $m ;
+        if(!is_numeric($fieldsCount) || !is_numeric($chipCount))
+        {
+            throw new RuntimeException(__CLASS__ . ": bad Constructor Args");
+        }
+
+        $this->n = $fieldsCount;
+        $this->m = $chipCount ;
 
     }
 }
