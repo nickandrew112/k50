@@ -24,17 +24,15 @@ class MathUtil
      */
     public static function combinationsCount($n, $m)
     {
-        if(!is_integer($n) || !is_integer($m))
-        {
+        if (!is_integer($n) || !is_integer($m)) {
             throw new \InvalidArgumentException("Input parametrs are not a number");
         }
 
-        if($m > $n)
-        {
-            throw new \InvalidArgumentException("Incorrect arguments n < m (" . $n  .'<' . $m . ')');
+        if ($m > $n) {
+            throw new \InvalidArgumentException("Incorrect arguments n < m (" . $n . '<' . $m . ')');
         }
 
-        return bcdiv(static::factorialWrapper($n), bcmul(static::factorialWrapper($m), static::factorialWrapper($n-$m), 0));
+        return bcdiv(static::factorialWrapper($n), bcmul(static::factorialWrapper($m), static::factorialWrapper($n - $m), 0));
     }
 
     /**
@@ -46,12 +44,11 @@ class MathUtil
      */
     protected static function factorialWrapper($n)
     {
-        if($n < 2)
-        {
+        if ($n < 2) {
             return 1;
         }
 
-        return bcmul($n , static::factorialWrapper($n - 1));
+        return bcmul($n, static::factorialWrapper($n - 1));
     }
 }
 

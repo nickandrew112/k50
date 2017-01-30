@@ -1,5 +1,5 @@
 <?php
-define('DATA_DIR' , __DIR__ . DIRECTORY_SEPARATOR  . 'data');
+define('DATA_DIR', __DIR__ . DIRECTORY_SEPARATOR . 'data');
 
 include_once 'vendor/autoload.php';
 

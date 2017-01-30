@@ -36,18 +36,16 @@ class Controller
      */
     public function generateAction()
     {
-        if(empty($_POST['fields_count']) || empty($_POST['chip_count']))
-        {
+        if (empty($_POST['fields_count']) || empty($_POST['chip_count'])) {
             http_response_code(static::BAD_REQUEST_CODE);
-        }
-        else {
+        } else {
             $fieldsCount = intval($_POST['fields_count']);
             $chipCount = intval($_POST['chip_count']);
             $fileName = uniqid() . '.txt';
 
             try {
                 $combinator = new Combinator($fieldsCount, $chipCount);
-                $combinator->genSet( DATA_DIR . DIRECTORY_SEPARATOR .  $fileName);
+                $combinator->genSet(DATA_DIR . DIRECTORY_SEPARATOR . $fileName);
                 http_response_code(static::SUCCESS_CODE);
 
                 return $fileName;
