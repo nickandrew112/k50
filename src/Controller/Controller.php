@@ -1,5 +1,9 @@
 <?php
 
+namespace Controller;
+
+use Model\Combinator;
+
 class Controller
 {
     const BAD_REQUEST_CODE = 400;
@@ -33,7 +37,7 @@ class Controller
 
         $combinator = new Combinator($fieldsCount,$chipCount);
         $combinator->genSet();
-        return json_encode($combinator->getSets());
+        return '';
     }
 }
 
