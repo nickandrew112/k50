@@ -1,8 +1,5 @@
 <?php
-include_once 'Model/MathUtil.php';
-include_once 'Model/Combinator.php';
-include_once 'Model/Controller.php';
-
+include_once 'autoloader.php';
 
 $controller = new Controller();
 $controller->generateAction();
