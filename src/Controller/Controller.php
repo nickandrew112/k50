@@ -4,39 +4,57 @@ namespace Controller;
 
 use Model\Combinator;
 
+/**
+ * Контроллер
+ *
+ * @category Controller
+ * @package Controller
+ * @author TurhishJoe
+ */
 class Controller
 {
+    /**
+     * HTTP возвращаемый при некорректных параметрах
+     */
     const BAD_REQUEST_CODE = 400;
 
-    const INVALID_FIELDS_COUNT = 1;
+    /**
+     * HTTP возвращаемый при ошибке сервера
+     */
+    const SERVER_ERROR_CODE = 500;
 
-    const INVALID_CHIP_COUNT = 2;
 
+    /**
+     * Действие генерации
+     *
+     * @return string
+     */
     public function generateAction()
     {
-        $errorCode = 0;
-
-        if(empty($_POST['fields_count']))
-        {
-            $errorCode = static::INVALID_FIELDS_COUNT;
-        }
-        else if(empty($_POST['chip_count']))
-        {
-            $errorCode = static::INVALID_CHIP_COUNT;
-        }
-
-        if(0 !== $errorCode)
+        if(empty($_POST['fields_count']) || empty($_POST['chip_count']))
         {
             http_response_code(static::BAD_REQUEST_CODE);
 
-            return $errorCode;
         }
 
         $fieldsCount = intval($_POST['fields_count']);
         $chipCount = intval($_POST['chip_count']);
 
-        $combinator = new Combinator($fieldsCount,$chipCount);
-        $combinator->genSet();
+        try {
+            $combinator = new Combinator($fieldsCount, $chipCount);
+            $combinator->genSet();
+        }
+        catch (\InvalidArgumentException $e)
+        {
+            http_response_code(static::BAD_REQUEST_CODE);
+        }
+        catch (\Exception $e)
+        {
+            http_response_code(static::SERVER_ERROR_CODE);
+
+            return '';
+        }
+
         return '';
     }
 }

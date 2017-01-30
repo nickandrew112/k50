@@ -20,19 +20,19 @@ class MathUtil
      *
      * @return string Результат функции(Строка используется для больших чисел)
      *
-     * @throws \RuntimeException Выбрасывается в случае некорректных аргументов
+     * @throws \InvalidArgumentException Выбрасывается в случае некорректных аргументов
      */
     public static function combinationsCount($n, $m)
     {
         if(!is_integer($n) || !is_integer($m))
         {
-            throw new \RuntimeException("Input parametrs are not a number");
+            throw new \InvalidArgumentException("Input parametrs are not a number");
         }
 
 
         if($m > $n)
         {
-            throw new \RuntimeException("Incorrect arguments n < m (" . $n  .'<' . $m . ')');
+            throw new \InvalidArgumentException("Incorrect arguments n < m (" . $n  .'<' . $m . ')');
         }
 
         return bcdiv(static::factorialWrapper($n), bcmul(static::factorialWrapper($m), static::factorialWrapper($n-$m)) );
